@@ -79,10 +79,5 @@ n=parse(Int64, ARGS[2]);
  
 P = binomial(N,n)
 println(@sprintf("P(%i,%i) = %.5e", N, n, P))
-
-
-
-
-
-
+println(@sprintf("P(%i,%i) = %.5e %%", N, n, P*100))
 
