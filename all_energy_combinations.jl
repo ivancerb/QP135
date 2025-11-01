@@ -1,8 +1,10 @@
 
-function nestedLoops(pos, N, vec, num_p)
+function energyLoop(pos, N, vec, num_p)
 	if pos == N+1
-        	# Base case: perform the innermost loop operation
-        	println(vec)
+        	# Caso base
+        	print(vec)
+		E=sum(vec)
+		println(" E=$E")
 		num_p[N]+=1
         	return
 	end
@@ -11,28 +13,28 @@ function nestedLoops(pos, N, vec, num_p)
 	end
 	for i in (1:6)
         	vec[pos] = i
-        	nestedLoops(pos+1, N, vec, num_p)
+        	energyLoop(pos+1, N, vec, num_p)
 	end
 end
 
-println("Energies combinations for each particle")
+println("Combinações de energia:")
 
 num_p=zeros(Int64, 6)
 
 for N in (1:6)
 	println()
-	println("########### $N PARTICLE(S) ###########") 	
+	println("########### $N PARTÍCULA(S) ###########") 	
 
 	vec = ones(Int64,N)
-	nestedLoops(1, N, vec, num_p)
+	energyLoop(1, N, vec, num_p)
 #	num_possibilities[N] = count
 end
 
 println()
-println("Total number of energy combinations for each particle - Distinguishable case")
+println("Número total de combinações de energias - Caso distinguível")
 println()
 
 
 for i in (1:6)
-	println("$i PARTICLE(S): $(num_p[i]) POSSIBILITIES")
+	println("$i PARTÍCULA(S): $(num_p[i]) POSSIBILIDADES")
 end
