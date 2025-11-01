@@ -22,7 +22,7 @@ function count_energy(E, energy_map)
 	end
 end
 
-function nestedLoops(pos, N, vec, num_p, energy_map)
+function energyLoop(pos, N, vec, num_p, energy_map)
 	if pos == N+1
         	#print(vec)
 		E=sum(vec)
@@ -36,7 +36,7 @@ function nestedLoops(pos, N, vec, num_p, energy_map)
 #	end
 	for i in (1:6)
         	vec[pos] = i
-        	nestedLoops(pos+1, N, vec, num_p, energy_map)
+        	energyLoop(pos+1, N, vec, num_p, energy_map)
 	end
 end
 
@@ -55,7 +55,7 @@ N=parse(Int, ARGS[1])
 
 num_p=zeros(Int64,1)
 vec = ones(Int64,N)
-nestedLoops(1, N, vec, num_p, energy_map)
+energyLoop(1, N, vec, num_p, energy_map)
 
 #println()
 #println("Total number of energy combinations for each particle - Distinguishable case")
