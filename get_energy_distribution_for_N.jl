@@ -1,9 +1,9 @@
 #Ex 75
-#Calculates the number of microstates corresponding to a giving total energy, for a number of particles N
-#System can have from 1 up to 6 particles
-#Each particle can have energies in the range 1-6
-#N is the number of particles of the system
-#Syntax:
+#Calcula o número de microestados que correspondem a uma dada energia total, para um sistema com N partículas.
+#O sistema pode ter de 1 a 6 partículas;
+#Cada partícula pode ter energia entre 1 e 6.
+#N é o número de partículas do sistema.
+#Sintaxe:
 #julia get_energy_distribution_for_N.jl N 
 
 import Pkg; 
@@ -12,7 +12,7 @@ Pkg.add("DataStructures")
 
 using DataStructures
 
-energy_map = SortedDict{Int, Int}() #key = energy of the system; value = number of microstates with that energy
+energy_map = SortedDict{Int, Int}() #chave: energia total do sistema; valor: número de microestados com essa energia.
 
 function count_energy(E, energy_map)
 	if haskey(energy_map, E)
@@ -24,26 +24,18 @@ end
 
 function energyLoop(pos, N, vec, num_p, energy_map)
 	if pos == N+1
-        	#print(vec)
 		E=sum(vec)
-		#println(" E=$E")
 		count_energy(E, energy_map)
 		num_p[1]+=1
         	return
 	end
-#	if pos == N
-#		println()
-#	end
 	for i in (1:6)
         	vec[pos] = i
         	energyLoop(pos+1, N, vec, num_p, energy_map)
 	end
 end
 
-function extract_energy_data_to_file(energy_map, N)
-	#println("@title \"Distribuição de microestados - $N partículas\"")
-	#println("@xaxis label \"Energia (unidades arbitrárias)\"")
-	#println("@yaxis label \"Número de microestados\"")
+function extract_energy_data(energy_map, N)
 	for (key, value) in energy_map
 		println("$key $value")
 	end
@@ -57,12 +49,6 @@ num_p=zeros(Int64,1)
 vec = ones(Int64,N)
 energyLoop(1, N, vec, num_p, energy_map)
 
-#println()
-#println("Total number of energy combinations for each particle - Distinguishable case")
-#println()
 
-
-#println("$N PARTICLE(S): $(num_p[1]) POSSIBILITIES")
-
-#println("Energy map")
-extract_energy_data_to_file(energy_map, N)
+println("ENERGY MICROSTATES") #header
+extract_energy_data(energy_map, N)
